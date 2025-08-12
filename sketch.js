@@ -4,7 +4,7 @@ let spectrum = []; // lascia vuoto e assegna da fft.analyze()
 
 let lastUpdateTime;
 let lastInteractionMillis = 0; 
-const SOFFIO_THRESHOLD = 0.01;
+const SOFFIO_THRESHOLD = 0.05;
 const TIMEOUT = 90000; // 90 secondi
 let showStartScreen = true;
 
@@ -434,6 +434,14 @@ function setup() {
   fft.setInput(mic);
 
   lastUpdateTime = millis();
+   mic = new p5.AudioIn();
+  mic.start(() => {
+    console.log('Microfono attivato');
+  }, (err) => {
+    console.error('Errore microfono:', err);
+  });
+  fft = new p5.FFT(0.8, bands);
+  fft.setInput(mic);
 }
 
 function resetSeeds() {
@@ -467,8 +475,9 @@ function draw() {
   }
   avgVolume /= bands;
 
-  forzaSoffio = map(avgVolume, 0, 150, 0, 5);
-  forzaSoffio = constrain(forzaSoffio, 0, 5);
+  let volume = mic.getLevel();
+forzaSoffio = map(volume, 0, 0.3, 0, 5);
+forzaSoffio = constrain(forzaSoffio, 0, 5);
 
   // Se c'è soffio sopra soglia, aggiorna timer e nascondi start screen
   if (showStartScreen && forzaSoffio > SOFFIO_THRESHOLD) {
@@ -588,6 +597,7 @@ function aggiornaVento() {
 }
 
 function mousePressed() {
+  userStartAudio();  // sblocca l'audio nel browser
   if (showStartScreen) {
     showStartScreen = false;
     lastInteractionMillis = millis();
@@ -621,3 +631,4 @@ function windowResized() {
   if (sfondo) sfondo.resize(width, height);
   if (soffione) soffione.resize(soffione.width, soffione.height); // o scala adatta a nuovo canvas
 }
+
