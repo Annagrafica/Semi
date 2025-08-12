@@ -1,6 +1,6 @@
 let fft, mic;
 let bands = 512;
-let spectrum = new Array(bands).fill(0);
+let spectrum = []; // lascia vuoto e assegna da fft.analyze()
 
 let lastUpdateTime;
 let lastInteractionMillis = 0; 
@@ -256,13 +256,17 @@ class Seed {
     this.selezionato = false;
   }
 
-  updatePosition() {
-    let imgH = this.img.height * this.scaleFactor / 3;
-    let x_base = this.circleCenterX + cos(this.angle) * this.circleRadius;
-    let y_base = this.circleCenterY + sin(this.angle) * this.circleRadius;
-    this.x = x_base + cos(this.angle) * (imgH / 2 + random(-10, 10));
-    this.y = y_base + sin(this.angle) * (imgH / 2 + random(-10, 10));
-  }
+ updatePosition() {
+  let imgH = this.img.height * this.scaleFactor / 3;
+  // calcola una piccola oscillazione dolce con noise invece che random
+  let offsetX = map(noise(this.noiseOffsetX), 0, 1, -10, 10);
+  let offsetY = map(noise(this.noiseOffsetY), 0, 1, -10, 10);
+  let x_base = this.circleCenterX + cos(this.angle) * this.circleRadius;
+  let y_base = this.circleCenterY + sin(this.angle) * this.circleRadius;
+  this.x = x_base + cos(this.angle) * (imgH / 2) + offsetX;
+  this.y = y_base + sin(this.angle) * (imgH / 2) + offsetY;
+}
+
 
   release() {
     this.released = true;
@@ -286,7 +290,7 @@ class Seed {
       let noiseX = map(noise(this.noiseOffsetX), 0, 1, -0.9, 0.9);
       let noiseY = map(noise(this.noiseOffsetY), 0, 1, -0.9, 0.9);
       this.noiseOffsetX += 0.005;
-      this.noiseOffsetY += 0.005;
+  this.noiseOffsetY += 0.005;
 
       this.vx += noiseX;
       this.vy += noiseY;
@@ -615,4 +619,5 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   center.set(width / 2, height / 2);
   if (sfondo) sfondo.resize(width, height);
+  if (soffione) soffione.resize(soffione.width, soffione.height); // o scala adatta a nuovo canvas
 }
