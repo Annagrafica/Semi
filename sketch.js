@@ -376,13 +376,13 @@ class Seed {
 
 function preload() {
   // Carica immagini sfondo e soffione
-  sfondo = loadImage("sfondo.png");
-  soffione = loadImage("soffione.png");
+  sfondo = loadImage("data/sfondo.png");
+  soffione = loadImage("data/soffione.png");
 
   // Carica immagini semi (soffione1.png, soffione2.png ...)
   let numSemi = testiSemi.length;
   for (let i = 1; i <= numSemi; i++) {
-    photos.push(loadImage(`soffione${i}.png`));
+    photos.push(loadImage(`data/soffione${i}.png`));
   }
 }
 
