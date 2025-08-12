@@ -428,11 +428,6 @@ function setup() {
   }
 
   // Audio setup
-  fft = new p5.FFT(0.8, bands);
-  mic = new p5.AudioIn();
-  mic.start();
-  fft.setInput(mic);
-
   lastUpdateTime = millis();
    mic = new p5.AudioIn();
   mic.start(() => {
@@ -457,10 +452,6 @@ function resetSeeds() {
 }
 
 function draw() {
-   if (mic) {
-    let volume = mic.getLevel();
-    console.log("Volume microfono:", volume);
-  }
   // Sfondo
   if (sfondo) {
     imageMode(CORNER);
