@@ -457,6 +457,10 @@ function resetSeeds() {
 }
 
 function draw() {
+   if (mic) {
+    let volume = mic.getLevel();
+    console.log("Volume microfono:", volume);
+  }
   // Sfondo
   if (sfondo) {
     imageMode(CORNER);
@@ -597,7 +601,6 @@ function aggiornaVento() {
 }
 
 function mousePressed() {
-  userStartAudio();  // sblocca l'audio nel browser
   if (showStartScreen) {
     showStartScreen = false;
     lastInteractionMillis = millis();
