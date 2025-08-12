@@ -1,5 +1,3 @@
-// Assicurati di includere p5.sound.js nel progetto HTML!
-
 let fft, mic;
 let bands = 512;
 let spectrum = new Array(bands).fill(0);
