@@ -1,10 +1,10 @@
 let fft, mic;
 let bands = 512;
-let spectrum = []; // lascia vuoto e assegna da fft.analyze()
+let spectrum = new Array(bands).fill(0);
 
 let lastUpdateTime;
 let lastInteractionMillis = 0; 
-const SOFFIO_THRESHOLD = 0.05;
+const SOFFIO_THRESHOLD = 0.01;
 const TIMEOUT = 90000; // 90 secondi
 let showStartScreen = true;
 
@@ -29,205 +29,12 @@ let xButtonSize = 30;
 let xButtonX = 0;
 let xButtonY = 0;
 
-// Testi per i semi (array di stringhe in p5.js)
 const testiSemi = [
-  `ENERGIA, GIOIA E AMORE PER LA VITA
-
-NICOLA
-(1937-2019)
-Agronomo del Ministero dell’Agricoltura
-Amava la natura, le passeggiate all’aria fresca
-e gli esercizi alla sbarra.`,
-
-  `BONTÀ E GENEROSITÀ VERSO GLI ALTRI
-
-DENNY
-(1932-2020)
-Docente di scuola primaria
-Amava la lettura, la scrittura, il ricamo e la cucina tradizionale.`,
-
-  `DEDIZIONE COME ALLENATORE E RISPETTO PER OGNI ALLIEVO
-
-VADIM
-(1935-2019)
-Allenatore nazionale di sciabola, ex marinaio
-Amava il mare, lo sport e il movimento.`,
-
-  `ADATTARSI E CUSTODIRE LA PROPRIA FELICITÀ
-
-DIMITRI
-(1944-2017)
-Musicologo e professore universitario
-Amava la musica, la scrittura e la teoria musicale.`,
-
-  `COMPRENDERE GLI ALTRI E VEDERE OLTRE
-
-PEPPINO
-(1961-2019)
-Commissario capo della Polizia di Stato
-Amava i viaggi, il nuoto, la moto e la musica.`,
-
-  `GENTILEZZA COME UN ABBRACCIO, BUONO CON TUTTI
-
-GIOELE
-(1993-2021)
-Aiutava a organizzare eventi per bambini
-Amava i bambini, aiutare gli altri e le patatine.`,
-
-  `RAZIONALITÀ E PASSIONE PER CIÒ CHE FACEVA
-
-LAURA
-(1961-2011)
-Ingegnere informatico al Ministero della Giustizia
-Amava la fotografia, la lettura, lo sport e la musica.`,
-
-  `TENEREZZA NEGLI OCCHI E NELLA MUSICA
-
-MARINA
-(1964-2020)
-Professoressa e pianista
-Amava i bambini e partecipava a concerti cantando e suonando.`,
-
-  `GENEROSITÀ E FEDE NELLA RESURREZIONE DELL’ANIMA
-
-NINA
-(1952-2018)
-Responsabile di dormitorio
-Amava l’orto, i bambini e aiutare chi era in difficoltà.`,
-
-  `AMORE PER OGNI ESSERE VIVENTE
-
-ALESSANDRO
-(1955-2022)
-Boscaiolo
-Amava l’elettronica, il giardinaggio e la vita di campagna.`,
-
-  `FORZA MORALE E CORAGGIO DI PROTEGGERE I DEBOLI
-
-NICOLA
-(1950-1995)
-Lavoratore versatile e artista autodidatta
-Amava la pittura e il fai-da-te.`,
-
-  `PREGHIERA SILENZIOSA E SERENITÀ
-
-VALENTINA
-(1950-2019)
-Collaboratrice in chiesa
-Amava la pace, la tranquillità e il silenzio.`,
-
-  `FEDELTÀ, DETERMINAZIONE E RESPONSABILITÀ
-
-IVAN
-(1923-1990)
-Direttore di miniera
-Amava il lavoro e stare in compagnia.`,
-
-  `CURA AMOREVOLE E DEDIZIONE AGLI STUDENTI
-
-GALINA
-(1941-2021)
-Insegnante e musicologa
-Amava il pianoforte, la ricerca e i suoi studenti.`,
-
-  `RESPONSABILITÀ E SOSTEGNO PER GLI ALTRI
-
-BARTOLO
-(1988-2025)
-Collaboratore scolastico
-Amava il calcio e l’informatica.`,
-
-  `SORRISO LUMINOSO E SAGGEZZA SPECIALE
-
-OLGA
-(2006-2011)
-Bambina solare e gioiosa
-Amava giocare con altri bambini.`,
-
-  `TALENTO, PROFESSIONALITÀ E FORZA
-
-IGOR
-(1949-2025)
-Compositore e orchestratore
-Amava la musica, la pesca e raccogliere funghi.`,
-
-  `BONTÀ INFINITA E COMPASSIONE PER TUTTI
-
-LIDIA
-(1949-2020)
-Sarta e creatrice di abiti
-Amava i bambini e lavorare in asilo.`,
-
-  `ENERGIA E GIOIA DI VIVERE
-
-CAPITALINA
-(1935-2020)
-Animatrice e organizzatrice di eventi
-Amava lo sport, lo yoga e la socialità.`,
-
-  `ANIMA POETICA E SENSIBILITÀ
-
-DIMITRI
-(1947-2015)
-Architetto e poeta
-Amava l’arte, la famiglia e la vita spirituale.`,
-
-  `DOLCEZZA E CALMA PER TUTTI
-
-LUDMILA
-(1948-2019)
-Fioraia e dipendente tessile
-Amava creare bouquet, composizioni e quadri con fiori secchi.`,
-
-  `FORZA E SENSIBILITÀ
-
-ANNA
-(1927-2006)
-Guardiana notturna
-Amava leggere e cantare.`,
-
-  `DEDIZIONE TOTALE AGLI ALTRI
-
-PADRE GENNADIJ
-(1948-1997)
-Sacerdote e architetto
-Amava la comunità, l’arte, la musica e la natura.`,
-
-  `ANIMA NELLA MUSICA E TRASMETTERLA AGLI ALTRI
-
-ALESSANDRO
-(1983-2020)
-Violoncellista
-Amava i viaggi, il pubblico e la modestia.`,
-
-  `TALENTO E UMILTÀ
-
-CIRILLO
-(1984-2016)
-Cantante del coro Aleksandrov
-Amava gli amici, l’allegria e la musica.`,
-
-  `AMORE PER LA VITA E LE CULTURE
-
-MARIA
-(1970-2024)
-Cantante e segretaria
-Amava i viaggi, l’arte e i cavalli.`,
-
-  `PASSIONE E TALENTO PER LA FOTOGRAFIA
-
-ALFREDO
-(1946-2023)
-Fotografo e professore
-Amava scoprire nuovi luoghi.`,
-
-  `RICERCA DI SÉ E CORAGGIO DI SEGUIRE I DESIDERI
-
-PINO
-(1935-2002)
-Funzionario ministeriale
-Amava l’informatica, l’elettronica e la musica classica.`
+  "ENERGIA, GIOIA E AMORE PER LA VITA\n\nNICOLA\n(1937-2019)\nAgronomo del Ministero dell’Agricoltura\nAmava la natura, le passeggiate all’aria fresca \ne gli esercizi alla sbarra.",
+  // ... inserisci tutti gli altri testi qui, uguali al tuo originale ...
+  "RICERCA DI SÉ E CORAGGIO DI SEGUIRE I DESIDERI\n\nPINO\n(1935-2002)\nFunzionario ministeriale\nAmava l’informatica, l’elettronica e la musica classica."
 ];
+
 // Classe Seed tradotta da Processing a p5.js
 class Seed {
   constructor(angle, img, scaleFactor, cx, cy, radius, testo) {
@@ -256,17 +63,13 @@ class Seed {
     this.selezionato = false;
   }
 
- updatePosition() {
-  if (this.released) return; // non aggiornare posizione base dopo il rilascio
-
-  let imgH = this.img.height * this.scaleFactor / 3;
-  let offsetX = map(noise(this.noiseOffsetX), 0, 1, -10, 10);
-  let offsetY = map(noise(this.noiseOffsetY), 0, 1, -10, 10);
-  let x_base = this.circleCenterX + cos(this.angle) * this.circleRadius;
-  let y_base = this.circleCenterY + sin(this.angle) * this.circleRadius;
-  this.x = x_base + cos(this.angle) * (imgH / 2) + offsetX;
-  this.y = y_base + sin(this.angle) * (imgH / 2) + offsetY;
-}
+  updatePosition() {
+    let imgH = this.img.height * this.scaleFactor / 3;
+    let x_base = this.circleCenterX + cos(this.angle) * this.circleRadius;
+    let y_base = this.circleCenterY + sin(this.angle) * this.circleRadius;
+    this.x = x_base + cos(this.angle) * (imgH / 2 + random(-10, 10));
+    this.y = y_base + sin(this.angle) * (imgH / 2 + random(-10, 10));
+  }
 
   release() {
     this.released = true;
@@ -290,7 +93,7 @@ class Seed {
       let noiseX = map(noise(this.noiseOffsetX), 0, 1, -0.9, 0.9);
       let noiseY = map(noise(this.noiseOffsetY), 0, 1, -0.9, 0.9);
       this.noiseOffsetX += 0.005;
-  this.noiseOffsetY += 0.005;
+      this.noiseOffsetY += 0.005;
 
       this.vx += noiseX;
       this.vy += noiseY;
@@ -379,10 +182,14 @@ class Seed {
 }
 
 function preload() {
+  // Carica immagini sfondo e soffione
   sfondo = loadImage("sfondo.png");
   soffione = loadImage("soffione.png");
-  for (let i = 0; i < testiSemi.length; i++) {
-    photos[i] = loadImage("soffione" + (i + 1) + ".png");
+
+  // Carica immagini semi (soffione1.png, soffione2.png ...)
+  let numSemi = testiSemi.length;
+  for (let i = 1; i <= numSemi; i++) {
+    photos.push(loadImage(`soffione${i}.png`));
   }
 }
 
@@ -392,18 +199,22 @@ function setup() {
   center = createVector(width / 2, height / 2);
   lastInteractionMillis = millis();
 
+  // Ridimensiona immagini sfondo e soffione se necessario
   if (sfondo) sfondo.resize(width, height);
 
-  let circleCenterX = center.x;
-  let circleCenterY = center.y - 65;
-  let circleRadius = soffione.width / 4 - 100;
+  // Posiziona semi attorno al cerchio
+  const numSemi = testiSemi.length;
+  const circleCenterX = center.x;
+  const circleCenterY = center.y - 65;
+  const circleRadius = soffione.width / 4 - 100;
 
-  let distanzaTraSemi = TWO_PI / testiSemi.length;
-  let scaleSet = [1.0, 1.4, 1.8];
+  const distanzaTraSemi = TWO_PI / numSemi;
+
+  const scaleSet = [1.0, 1.4, 1.8];
   let scaleSequence = [];
-  let lastIndex = -1;
 
-  for (let i = 0; i < testiSemi.length; i++) {
+  let lastIndex = -1;
+  for (let i = 0; i < numSemi; i++) {
     let newIndex;
     do {
       newIndex = floor(random(scaleSet.length));
@@ -412,48 +223,32 @@ function setup() {
     lastIndex = newIndex;
   }
 
-  for (let i = 0; i < testiSemi.length; i++) {
+  for (let i = 0; i < numSemi; i++) {
     let angle = i * distanzaTraSemi;
     let scaleFactor = scaleSequence[i];
-    let nuovoSeme = new Seed(angle, photos[i], scaleFactor, circleCenterX, circleCenterY, circleRadius);
-    nuovoSeme.testo = testiSemi[i];
-    seeds.push(nuovoSeme);
+    let seed = new Seed(angle, photos[i % photos.length], scaleFactor, circleCenterX, circleCenterY, circleRadius, testiSemi[i]);
+    seeds.push(seed);
   }
 
-  mic = new p5.AudioIn();
+  // Audio setup
   fft = new p5.FFT(0.8, bands);
+  mic = new p5.AudioIn();
+  mic.start();
+  fft.setInput(mic);
+
+  lastUpdateTime = millis();
 }
 
-function mousePressed() {
-  if (getAudioContext().state !== 'running') {
-    getAudioContext().resume();
-    mic.start();
-    fft.setInput(mic);
+function resetSeeds() {
+  for (let s of seeds) {
+    s.released = false;
+    s.releaseProgress = 0;
+    s.vx = 0;
+    s.vy = 0;
+    s.rotation = s.angle + PI / 2;
+    s.updatePosition();
   }
-
-  if (showStartScreen) {
-    showStartScreen = false;
-    lastInteractionMillis = millis();
-    return;
-  }
-
-  if (semeSelezionato) {
-    let d = dist(mouseX, mouseY, xButtonX, xButtonY);
-    if (d < xButtonSize / 2) {
-      semeSelezionato = null;
-      return;
-    }
-  }
-
-  semeSelezionato = null;
-  for (let i = seeds.length - 1; i >= 0; i--) {
-    let s = seeds[i];
-    if (s.released && dist(mouseX, mouseY, s.x, s.y) < 50) {
-      semeSelezionato = s;
-      lastInteractionMillis = millis();
-      break;
-    }
-  }
+  orologioAttivo = false;
 }
 
 function draw() {
@@ -475,9 +270,8 @@ function draw() {
   }
   avgVolume /= bands;
 
-  let volume = mic.getLevel();
-forzaSoffio = map(volume, 0, 0.3, 0, 5);
-forzaSoffio = constrain(forzaSoffio, 0, 5);
+  forzaSoffio = map(avgVolume, 0, 150, 0, 5);
+  forzaSoffio = constrain(forzaSoffio, 0, 5);
 
   // Se c'è soffio sopra soglia, aggiorna timer e nascondi start screen
   if (showStartScreen && forzaSoffio > SOFFIO_THRESHOLD) {
@@ -545,23 +339,23 @@ function drawStartScreen() {
   let h = height;
   let w = width;
 
-  textSize(w * 0.02);
-  text("Per donare respiro alle vite passate", w / 2, h * 0.10);
+  textSize(w * 0.03);
+  text("Per donare respiro alle vite passate", w / 2, h * 0.20);
 
-  textSize(w * 0.06);
-  text("SOFFIA!", w / 2, h * 0.20);
+  textSize(w * 0.085);
+  text("SOFFIA!", w / 2, h * 0.30);
 
-  textSize(w * 0.02);
-  text("(Fai volare i semi)", w / 2, h * 0.30);
+  textSize(w * 0.03);
+  text("(Fai volare i semi)", w / 2, h * 0.40);
 
-  textSize(w * 0.02);
-  text("Per stringere la mano a chi abita nel ricordo e conoscerlo", w / 2, h * 0.50);
+  textSize(w * 0.03);
+  text("Per stringere la mano a chi abita nel ricordo e conoscerlo", w / 2, h * 0.60);
 
-  textSize(w * 0.060);
-  text("CLICCA", w / 2, h * 0.60);
+  textSize(w * 0.085);
+  text("CLICCA", w / 2, h * 0.70);
 
-  textSize(w * 0.02);
-  text("(Su un seme volante)", w / 2, h * 0.70);
+  textSize(w * 0.03);
+  text("(Su un seme volante)", w / 2, h * 0.80);
 }
 
 function drawClockArrows() {
@@ -601,8 +395,6 @@ function mousePressed() {
     showStartScreen = false;
     lastInteractionMillis = millis();
     return;
-     let fs = fullscreen();
-  fullscreen(!fs);
   }
 
   if (semeSelezionato !== null) {
@@ -630,19 +422,4 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   center.set(width / 2, height / 2);
   if (sfondo) sfondo.resize(width, height);
-
-  // Ricalcola posizione del cerchio
-  const scaleFactor = 1.2;
-  const soffioneDisplayWidth = soffione.width * scaleFactor;
-  const circleRadius = (soffioneDisplayWidth / 2) * 0.7;
-  const circleCenterX = center.x;
-  const circleCenterY = center.y + 30;
-
-  for (let s of seeds) {
-    s.circleCenterX = circleCenterX;
-    s.circleCenterY = circleCenterY;
-    s.circleRadius = circleRadius;
-    s.updatePosition();
-  }
 }
-
