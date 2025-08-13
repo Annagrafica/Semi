@@ -29,205 +29,65 @@ let xButtonSize = 30;
 let xButtonX = 0;
 let xButtonY = 0;
 
-// Testi per i semi (array di stringhe in p5.js)
 const testiSemi = [
-  ENERGIA, GIOIA E AMORE PER LA VITA
-
-NICOLA
-(1937-2019)
-Agronomo del Ministero dell’Agricoltura
-Amava la natura, le passeggiate all’aria fresca
-e gli esercizi alla sbarra.,
-
-  BONTÀ E GENEROSITÀ VERSO GLI ALTRI
-
-DENNY
-(1932-2020)
-Docente di scuola primaria
-Amava la lettura, la scrittura, il ricamo e la cucina tradizionale.,
-
-  DEDIZIONE COME ALLENATORE E RISPETTO PER OGNI ALLIEVO
-
-VADIM
-(1935-2019)
-Allenatore nazionale di sciabola, ex marinaio
-Amava il mare, lo sport e il movimento.,
-
-  ADATTARSI E CUSTODIRE LA PROPRIA FELICITÀ
-
-DIMITRI
-(1944-2017)
-Musicologo e professore universitario
-Amava la musica, la scrittura e la teoria musicale.,
-
-  COMPRENDERE GLI ALTRI E VEDERE OLTRE
-
-PEPPINO
-(1961-2019)
-Commissario capo della Polizia di Stato
-Amava i viaggi, il nuoto, la moto e la musica.,
-
-  GENTILEZZA COME UN ABBRACCIO, BUONO CON TUTTI
-
-GIOELE
-(1993-2021)
-Aiutava a organizzare eventi per bambini
-Amava i bambini, aiutare gli altri e le patatine.,
-
-  RAZIONALITÀ E PASSIONE PER CIÒ CHE FACEVA
-
-LAURA
-(1961-2011)
-Ingegnere informatico al Ministero della Giustizia
-Amava la fotografia, la lettura, lo sport e la musica.,
-
-  TENEREZZA NEGLI OCCHI E NELLA MUSICA
-
-MARINA
-(1964-2020)
-Professoressa e pianista
-Amava i bambini e partecipava a concerti cantando e suonando.,
-
-  GENEROSITÀ E FEDE NELLA RESURREZIONE DELL’ANIMA
-
-NINA
-(1952-2018)
-Responsabile di dormitorio
-Amava l’orto, i bambini e aiutare chi era in difficoltà.,
-
-  AMORE PER OGNI ESSERE VIVENTE
-
-ALESSANDRO
-(1955-2022)
-Boscaiolo
-Amava l’elettronica, il giardinaggio e la vita di campagna.,
-
-  FORZA MORALE E CORAGGIO DI PROTEGGERE I DEBOLI
-
-NICOLA
-(1950-1995)
-Lavoratore versatile e artista autodidatta
-Amava la pittura e il fai-da-te.,
-
-  PREGHIERA SILENZIOSA E SERENITÀ
-
-VALENTINA
-(1950-2019)
-Collaboratrice in chiesa
-Amava la pace, la tranquillità e il silenzio.,
-
-  FEDELTÀ, DETERMINAZIONE E RESPONSABILITÀ
-
-IVAN
-(1923-1990)
-Direttore di miniera
-Amava il lavoro e stare in compagnia.,
-
-  CURA AMOREVOLE E DEDIZIONE AGLI STUDENTI
-
-GALINA
-(1941-2021)
-Insegnante e musicologa
-Amava il pianoforte, la ricerca e i suoi studenti.,
-
-  RESPONSABILITÀ E SOSTEGNO PER GLI ALTRI
-
-BARTOLO
-(1988-2025)
-Collaboratore scolastico
-Amava il calcio e l’informatica.,
-
-  SORRISO LUMINOSO E SAGGEZZA SPECIALE
-
-OLGA
-(2006-2011)
-Bambina solare e gioiosa
-Amava giocare con altri bambini.,
-
-  TALENTO, PROFESSIONALITÀ E FORZA
-
-IGOR
-(1949-2025)
-Compositore e orchestratore
-Amava la musica, la pesca e raccogliere funghi.,
-
-  BONTÀ INFINITA E COMPASSIONE PER TUTTI
-
-LIDIA
-(1949-2020)
-Sarta e creatrice di abiti
-Amava i bambini e lavorare in asilo.,
-
-  ENERGIA E GIOIA DI VIVERE
-
-CAPITALINA
-(1935-2020)
-Animatrice e organizzatrice di eventi
-Amava lo sport, lo yoga e la socialità.,
-
-  ANIMA POETICA E SENSIBILITÀ
-
-DIMITRI
-(1947-2015)
-Architetto e poeta
-Amava l’arte, la famiglia e la vita spirituale.,
-
-  DOLCEZZA E CALMA PER TUTTI
-
-LUDMILA
-(1948-2019)
-Fioraia e dipendente tessile
-Amava creare bouquet, composizioni e quadri con fiori secchi.,
-
-  FORZA E SENSIBILITÀ
-
-ANNA
-(1927-2006)
-Guardiana notturna
-Amava leggere e cantare.,
-
-  DEDIZIONE TOTALE AGLI ALTRI
-
-PADRE GENNADIJ
-(1948-1997)
-Sacerdote e architetto
-Amava la comunità, l’arte, la musica e la natura.,
-
-  ANIMA NELLA MUSICA E TRASMETTERLA AGLI ALTRI
-
-ALESSANDRO
-(1983-2020)
-Violoncellista
-Amava i viaggi, il pubblico e la modestia.,
-
-  TALENTO E UMILTÀ
-
-CIRILLO
-(1984-2016)
-Cantante del coro Aleksandrov
-Amava gli amici, l’allegria e la musica.,
-
-  AMORE PER LA VITA E LE CULTURE
-
-MARIA
-(1970-2024)
-Cantante e segretaria
-Amava i viaggi, l’arte e i cavalli.,
-
-  PASSIONE E TALENTO PER LA FOTOGRAFIA
-
-ALFREDO
-(1946-2023)
-Fotografo e professore
-Amava scoprire nuovi luoghi.,
-
-  RICERCA DI SÉ E CORAGGIO DI SEGUIRE I DESIDERI
-
-PINO
-(1935-2002)
-Funzionario ministeriale
-Amava l’informatica, l’elettronica e la musica classica.
+  "ENERGIA, GIOIA E AMORE PER LA VITA\n\nNICOLA\n(1937-2019)\nAgronomo del Ministero dell’Agricoltura\nAmava la natura, le passeggiate all’aria fresca\ne gli esercizi alla sbarra.",
+  
+  "BONTÀ E GENEROSITÀ VERSO GLI ALTRI\n\nDENNY\n(1932-2020)\nDocente di scuola primaria\nAmava la lettura, la scrittura, il ricamo e la cucina tradizionale.",
+  
+  "DEDIZIONE COME ALLENATORE E RISPETTO PER OGNI ALLIEVO\n\nVADIM\n(1935-2019)\nAllenatore nazionale di sciabola, ex marinaio\nAmava il mare, lo sport e il movimento.",
+  
+  "ADATTARSI E CUSTODIRE LA PROPRIA FELICITÀ\n\nDIMITRI\n(1944-2017)\nMusicologo e professore universitario\nAmava la musica, la scrittura e la teoria musicale.",
+  
+  "COMPRENDERE GLI ALTRI E VEDERE OLTRE\n\nPEPPINO\n(1961-2019)\nCommissario capo della Polizia di Stato\nAmava i viaggi, il nuoto, la moto e la musica.",
+  
+  "GENTILEZZA COME UN ABBRACCIO, BUONO CON TUTTI\n\nGIOELE\n(1993-2021)\nAiutava a organizzare eventi per bambini\nAmava i bambini, aiutare gli altri e le patatine.",
+  
+  "RAZIONALITÀ E PASSIONE PER CIÒ CHE FACEVA\n\nLAURA\n(1961-2011)\nIngegnere informatico al Ministero della Giustizia\nAmava la fotografia, la lettura, lo sport e la musica.",
+  
+  "TENEREZZA NEGLI OCCHI E NELLA MUSICA\n\nMARINA\n(1964-2020)\nProfessoressa e pianista\nAmava i bambini e partecipava a concerti cantando e suonando.",
+  
+  "GENEROSITÀ E FEDE NELLA RESURREZIONE DELL’ANIMA\n\nNINA\n(1952-2018)\nResponsabile di dormitorio\nAmava l’orto, i bambini e aiutare chi era in difficoltà.",
+  
+  "AMORE PER OGNI ESSERE VIVENTE\n\nALESSANDRO\n(1955-2022)\nBoscaiolo\nAmava l’elettronica, il giardinaggio e la vita di campagna.",
+  
+  "FORZA MORALE E CORAGGIO DI PROTEGGERE I DEBOLI\n\nNICOLA\n(1950-1995)\nLavoratore versatile e artista autodidatta\nAmava la pittura e il fai-da-te.",
+  
+  "PREGHIERA SILENZIOSA E SERENITÀ\n\nVALENTINA\n(1950-2019)\nCollaboratrice in chiesa\nAmava la pace, la tranquillità e il silenzio.",
+  
+  "FEDELTÀ, DETERMINAZIONE E RESPONSABILITÀ\n\nIVAN\n(1923-1990)\nDirettore di miniera\nAmava il lavoro e stare in compagnia.",
+  
+  "CURA AMOREVOLE E DEDIZIONE AGLI STUDENTI\n\nGALINA\n(1941-2021)\nInsegnante e musicologa\nAmava il pianoforte, la ricerca e i suoi studenti.",
+  
+  "RESPONSABILITÀ E SOSTEGNO PER GLI ALTRI\n\nBARTOLO\n(1988-2025)\nCollaboratore scolastico\nAmava il calcio e l’informatica.",
+  
+  "SORRISO LUMINOSO E SAGGEZZA SPECIALE\n\nOLGA\n(2006-2011)\nBambina solare e gioiosa\nAmava giocare con altri bambini.",
+  
+  "TALENTO, PROFESSIONALITÀ E FORZA\n\nIGOR\n(1949-2025)\nCompositore e orchestratore\nAmava la musica, la pesca e raccogliere funghi.",
+  
+  "BONTÀ INFINITA E COMPASSIONE PER TUTTI\n\nLIDIA\n(1949-2020)\nSarta e creatrice di abiti\nAmava i bambini e lavorare in asilo.",
+  
+  "ENERGIA E GIOIA DI VIVERE\n\nCAPITALINA\n(1935-2020)\nAnimatrice e organizzatrice di eventi\nAmava lo sport, lo yoga e la socialità.",
+  
+  "ANIMA POETICA E SENSIBILITÀ\n\nDIMITRI\n(1947-2015)\nArchitetto e poeta\nAmava l’arte, la famiglia e la vita spirituale.",
+  
+  "DOLCEZZA E CALMA PER TUTTI\n\nLUDMILA\n(1948-2019)\nFioraia e dipendente tessile\nAmava creare bouquet, composizioni e quadri con fiori secchi.",
+  
+  "FORZA E SENSIBILITÀ\n\nANNA\n(1927-2006)\nGuardiana notturna\nAmava leggere e cantare.",
+  
+  "DEDIZIONE TOTALE AGLI ALTRI\n\nPADRE GENNADIJ\n(1948-1997)\nSacerdote e architetto\nAmava la comunità, l’arte, la musica e la natura.",
+  
+  "ANIMA NELLA MUSICA E TRASMETTERLA AGLI ALTRI\n\nALESSANDRO\n(1983-2020)\nVioloncellista\nAmava i viaggi, il pubblico e la modestia.",
+  
+  "TALENTO E UMILTÀ\n\nCIRILLO\n(1984-2016)\nCantante del coro Aleksandrov\nAmava gli amici, l’allegria e la musica.",
+  
+  "AMORE PER LA VITA E LE CULTURE\n\nMARIA\n(1970-2024)\nCantante e segretaria\nAmava i viaggi, l’arte e i cavalli.",
+  
+  "PASSIONE E TALENTO PER LA FOTOGRAFIA\n\nALFREDO\n(1946-2023)\nFotografo e professore\nAmava scoprire nuovi luoghi.",
+  
+  "RICERCA DI SÉ E CORAGGIO DI SEGUIRE I DESIDERI\n\nPINO\n(1935-2002)\nFunzionario ministeriale\nAmava l’informatica, l’elettronica e la musica classica."
 ];
+
+
 // Classe Seed tradotta da Processing a p5.js
 class Seed {
   constructor(angle, img, scaleFactor, cx, cy, radius, testo) {
@@ -376,13 +236,13 @@ class Seed {
 
 function preload() {
   // Carica immagini sfondo e soffione
-  sfondo = loadImage("data/sfondo.png");
-  soffione = loadImage("data/soffione.png");
+ photos.push(loadImage(`data/soffione${i}.png`));
+  soffione = loadImage(`data/soffione.png`);
 
   // Carica immagini semi (soffione1.png, soffione2.png ...)
   let numSemi = testiSemi.length;
   for (let i = 1; i <= numSemi; i++) {
-    photos.push(loadImage(data/soffione${i}.png));
+    photos.push(loadImage(`data/soffione${i}.png`));
   }
 }
 
