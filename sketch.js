@@ -399,10 +399,10 @@ function setup() {
   if (sfondo) sfondo.resize(width, height);
 
   // Parametri soffione centrati
-  const scaleFactor = 1.2;
-  const soffioneDisplayWidth = soffione.width * scaleFactor;
-  const circleRadius = (soffioneDisplayWidth / 2) * 0.7; // raggio intorno al soffione
-
+ const scaleFactor = 1.2; // stesso di draw()
+const soffioneDisplayWidth = soffione.width * scaleFactor;
+const circleRadius = (soffioneDisplayWidth / 2) * 0.7;
+  
   const circleCenterX = center.x;
   const circleCenterY = center.y + 30; // per allineare con immagine
 
@@ -423,10 +423,13 @@ function setup() {
 
   seeds = [];
   for (let i = 0; i < numSemi; i++) {
-    let angle = i * distanzaTraSemi;
-    let scaleFactorSeed = scaleSequence[i];
-    let seed = new Seed(angle, photos[i % photos.length], scaleFactorSeed, circleCenterX, circleCenterY, circleRadius, testiSemi[i]);
-    seeds.push(seed);
+  let angle = i * distanzaTraSemi;
+  let scaleFactorSeed = scaleSequence[i];
+  let seed = new Seed(angle, photos[i % photos.length], scaleFactorSeed, circleCenterX, circleCenterY, circleRadius, testiSemi[i]);
+  
+  seed.updatePosition(); // <<< forza la posizione iniziale
+  seeds.push(seed);
+}
   }
 
   // Audio setup
