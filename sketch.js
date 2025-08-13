@@ -379,14 +379,10 @@ class Seed {
 }
 
 function preload() {
-  // Carica immagini sfondo e soffione
-  sfondo = loadImage("data/sfondo.png");
-  soffione = loadImage("data/soffione.png");
-
-  // Carica immagini semi (soffione1.png, soffione2.png ...)
-  let numSemi = testiSemi.length;
-  for (let i = 1; i <= numSemi; i++) {
-    photos.push(loadImage(`data/soffione${i}.png`));
+  sfondo = loadImage("sfondo.png");
+  soffione = loadImage("soffione.png");
+  for (let i = 0; i < testiSemi.length; i++) {
+    photos[i] = loadImage("soffione" + (i + 1) + ".png");
   }
 }
 
@@ -398,21 +394,16 @@ function setup() {
 
   if (sfondo) sfondo.resize(width, height);
 
-  // Parametri soffione centrati
- const scaleFactor = 1.2; // stesso di draw()
-const soffioneDisplayWidth = soffione.width * scaleFactor;
-const circleRadius = (soffioneDisplayWidth / 2) * 0.7;
-  
-  const circleCenterX = center.x;
-  const circleCenterY = center.y + 30; // per allineare con immagine
+  let circleCenterX = center.x;
+  let circleCenterY = center.y - 65;
+  let circleRadius = soffione.width / 4 - 100;
 
-  const numSemi = testiSemi.length;
-  const distanzaTraSemi = TWO_PI / numSemi;
-
-  const scaleSet = [1.0, 1.4, 1.8];
+  let distanzaTraSemi = TWO_PI / testiSemi.length;
+  let scaleSet = [1.0, 1.4, 1.8];
   let scaleSequence = [];
   let lastIndex = -1;
-  for (let i = 0; i < numSemi; i++) {
+
+  for (let i = 0; i < testiSemi.length; i++) {
     let newIndex;
     do {
       newIndex = floor(random(scaleSet.length));
@@ -421,34 +412,48 @@ const circleRadius = (soffioneDisplayWidth / 2) * 0.7;
     lastIndex = newIndex;
   }
 
-  seeds = [];
-  for (let i = 0; i < numSemi; i++) {
-  let angle = i * distanzaTraSemi;
-  let scaleFactorSeed = scaleSequence[i];
-  let seed = new Seed(angle, photos[i % photos.length], scaleFactorSeed, circleCenterX, circleCenterY, circleRadius, testiSemi[i]);
-  
-  seed.updatePosition(); // <<< forza la posizione iniziale
-  seeds.push(seed);
-}
+  for (let i = 0; i < testiSemi.length; i++) {
+    let angle = i * distanzaTraSemi;
+    let scaleFactor = scaleSequence[i];
+    let nuovoSeme = new Seed(angle, photos[i], scaleFactor, circleCenterX, circleCenterY, circleRadius);
+    nuovoSeme.testo = testiSemi[i];
+    seeds.push(nuovoSeme);
   }
 
-  // Audio setup
   mic = new p5.AudioIn();
-  mic.start();
   fft = new p5.FFT(0.8, bands);
-  fft.setInput(mic);
 }
 
-function resetSeeds() {
-  for (let s of seeds) {
-    s.released = false;
-    s.releaseProgress = 0;
-    s.vx = 0;
-    s.vy = 0;
-    s.rotation = s.angle + PI / 2;
-    s.updatePosition();
+function mousePressed() {
+  if (getAudioContext().state !== 'running') {
+    getAudioContext().resume();
+    mic.start();
+    fft.setInput(mic);
   }
-  orologioAttivo = false;
+
+  if (showStartScreen) {
+    showStartScreen = false;
+    lastInteractionMillis = millis();
+    return;
+  }
+
+  if (semeSelezionato) {
+    let d = dist(mouseX, mouseY, xButtonX, xButtonY);
+    if (d < xButtonSize / 2) {
+      semeSelezionato = null;
+      return;
+    }
+  }
+
+  semeSelezionato = null;
+  for (let i = seeds.length - 1; i >= 0; i--) {
+    let s = seeds[i];
+    if (s.released && dist(mouseX, mouseY, s.x, s.y) < 50) {
+      semeSelezionato = s;
+      lastInteractionMillis = millis();
+      break;
+    }
+  }
 }
 
 function draw() {
