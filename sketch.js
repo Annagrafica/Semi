@@ -257,8 +257,9 @@ class Seed {
   }
 
  updatePosition() {
+  if (this.released) return; // non aggiornare posizione base dopo il rilascio
+
   let imgH = this.img.height * this.scaleFactor / 3;
-  // calcola una piccola oscillazione dolce con noise invece che random
   let offsetX = map(noise(this.noiseOffsetX), 0, 1, -10, 10);
   let offsetY = map(noise(this.noiseOffsetY), 0, 1, -10, 10);
   let x_base = this.circleCenterX + cos(this.angle) * this.circleRadius;
@@ -266,7 +267,6 @@ class Seed {
   this.x = x_base + cos(this.angle) * (imgH / 2) + offsetX;
   this.y = y_base + sin(this.angle) * (imgH / 2) + offsetY;
 }
-
 
   release() {
     this.released = true;
@@ -622,6 +622,19 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   center.set(width / 2, height / 2);
   if (sfondo) sfondo.resize(width, height);
-  if (soffione) soffione.resize(soffione.width, soffione.height); // o scala adatta a nuovo canvas
+
+  // Ricalcola posizione del cerchio
+  const scaleFactor = 1.2;
+  const soffioneDisplayWidth = soffione.width * scaleFactor;
+  const circleRadius = (soffioneDisplayWidth / 2) * 0.7;
+  const circleCenterX = center.x;
+  const circleCenterY = center.y + 30;
+
+  for (let s of seeds) {
+    s.circleCenterX = circleCenterX;
+    s.circleCenterY = circleCenterY;
+    s.circleRadius = circleRadius;
+    s.updatePosition();
+  }
 }
 
