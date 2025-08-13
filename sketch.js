@@ -29,12 +29,205 @@ let xButtonSize = 30;
 let xButtonX = 0;
 let xButtonY = 0;
 
+// Testi per i semi (array di stringhe in p5.js)
 const testiSemi = [
-  "ENERGIA, GIOIA E AMORE PER LA VITA\n\nNICOLA\n(1937-2019)\nAgronomo del Ministero dell’Agricoltura\nAmava la natura, le passeggiate all’aria fresca \ne gli esercizi alla sbarra.",
-  // ... inserisci tutti gli altri testi qui, uguali al tuo originale ...
-  "RICERCA DI SÉ E CORAGGIO DI SEGUIRE I DESIDERI\n\nPINO\n(1935-2002)\nFunzionario ministeriale\nAmava l’informatica, l’elettronica e la musica classica."
-];
+  ENERGIA, GIOIA E AMORE PER LA VITA
 
+NICOLA
+(1937-2019)
+Agronomo del Ministero dell’Agricoltura
+Amava la natura, le passeggiate all’aria fresca
+e gli esercizi alla sbarra.,
+
+  BONTÀ E GENEROSITÀ VERSO GLI ALTRI
+
+DENNY
+(1932-2020)
+Docente di scuola primaria
+Amava la lettura, la scrittura, il ricamo e la cucina tradizionale.,
+
+  DEDIZIONE COME ALLENATORE E RISPETTO PER OGNI ALLIEVO
+
+VADIM
+(1935-2019)
+Allenatore nazionale di sciabola, ex marinaio
+Amava il mare, lo sport e il movimento.,
+
+  ADATTARSI E CUSTODIRE LA PROPRIA FELICITÀ
+
+DIMITRI
+(1944-2017)
+Musicologo e professore universitario
+Amava la musica, la scrittura e la teoria musicale.,
+
+  COMPRENDERE GLI ALTRI E VEDERE OLTRE
+
+PEPPINO
+(1961-2019)
+Commissario capo della Polizia di Stato
+Amava i viaggi, il nuoto, la moto e la musica.,
+
+  GENTILEZZA COME UN ABBRACCIO, BUONO CON TUTTI
+
+GIOELE
+(1993-2021)
+Aiutava a organizzare eventi per bambini
+Amava i bambini, aiutare gli altri e le patatine.,
+
+  RAZIONALITÀ E PASSIONE PER CIÒ CHE FACEVA
+
+LAURA
+(1961-2011)
+Ingegnere informatico al Ministero della Giustizia
+Amava la fotografia, la lettura, lo sport e la musica.,
+
+  TENEREZZA NEGLI OCCHI E NELLA MUSICA
+
+MARINA
+(1964-2020)
+Professoressa e pianista
+Amava i bambini e partecipava a concerti cantando e suonando.,
+
+  GENEROSITÀ E FEDE NELLA RESURREZIONE DELL’ANIMA
+
+NINA
+(1952-2018)
+Responsabile di dormitorio
+Amava l’orto, i bambini e aiutare chi era in difficoltà.,
+
+  AMORE PER OGNI ESSERE VIVENTE
+
+ALESSANDRO
+(1955-2022)
+Boscaiolo
+Amava l’elettronica, il giardinaggio e la vita di campagna.,
+
+  FORZA MORALE E CORAGGIO DI PROTEGGERE I DEBOLI
+
+NICOLA
+(1950-1995)
+Lavoratore versatile e artista autodidatta
+Amava la pittura e il fai-da-te.,
+
+  PREGHIERA SILENZIOSA E SERENITÀ
+
+VALENTINA
+(1950-2019)
+Collaboratrice in chiesa
+Amava la pace, la tranquillità e il silenzio.,
+
+  FEDELTÀ, DETERMINAZIONE E RESPONSABILITÀ
+
+IVAN
+(1923-1990)
+Direttore di miniera
+Amava il lavoro e stare in compagnia.,
+
+  CURA AMOREVOLE E DEDIZIONE AGLI STUDENTI
+
+GALINA
+(1941-2021)
+Insegnante e musicologa
+Amava il pianoforte, la ricerca e i suoi studenti.,
+
+  RESPONSABILITÀ E SOSTEGNO PER GLI ALTRI
+
+BARTOLO
+(1988-2025)
+Collaboratore scolastico
+Amava il calcio e l’informatica.,
+
+  SORRISO LUMINOSO E SAGGEZZA SPECIALE
+
+OLGA
+(2006-2011)
+Bambina solare e gioiosa
+Amava giocare con altri bambini.,
+
+  TALENTO, PROFESSIONALITÀ E FORZA
+
+IGOR
+(1949-2025)
+Compositore e orchestratore
+Amava la musica, la pesca e raccogliere funghi.,
+
+  BONTÀ INFINITA E COMPASSIONE PER TUTTI
+
+LIDIA
+(1949-2020)
+Sarta e creatrice di abiti
+Amava i bambini e lavorare in asilo.,
+
+  ENERGIA E GIOIA DI VIVERE
+
+CAPITALINA
+(1935-2020)
+Animatrice e organizzatrice di eventi
+Amava lo sport, lo yoga e la socialità.,
+
+  ANIMA POETICA E SENSIBILITÀ
+
+DIMITRI
+(1947-2015)
+Architetto e poeta
+Amava l’arte, la famiglia e la vita spirituale.,
+
+  DOLCEZZA E CALMA PER TUTTI
+
+LUDMILA
+(1948-2019)
+Fioraia e dipendente tessile
+Amava creare bouquet, composizioni e quadri con fiori secchi.,
+
+  FORZA E SENSIBILITÀ
+
+ANNA
+(1927-2006)
+Guardiana notturna
+Amava leggere e cantare.,
+
+  DEDIZIONE TOTALE AGLI ALTRI
+
+PADRE GENNADIJ
+(1948-1997)
+Sacerdote e architetto
+Amava la comunità, l’arte, la musica e la natura.,
+
+  ANIMA NELLA MUSICA E TRASMETTERLA AGLI ALTRI
+
+ALESSANDRO
+(1983-2020)
+Violoncellista
+Amava i viaggi, il pubblico e la modestia.,
+
+  TALENTO E UMILTÀ
+
+CIRILLO
+(1984-2016)
+Cantante del coro Aleksandrov
+Amava gli amici, l’allegria e la musica.,
+
+  AMORE PER LA VITA E LE CULTURE
+
+MARIA
+(1970-2024)
+Cantante e segretaria
+Amava i viaggi, l’arte e i cavalli.,
+
+  PASSIONE E TALENTO PER LA FOTOGRAFIA
+
+ALFREDO
+(1946-2023)
+Fotografo e professore
+Amava scoprire nuovi luoghi.,
+
+  RICERCA DI SÉ E CORAGGIO DI SEGUIRE I DESIDERI
+
+PINO
+(1935-2002)
+Funzionario ministeriale
+Amava l’informatica, l’elettronica e la musica classica.
+];
 // Classe Seed tradotta da Processing a p5.js
 class Seed {
   constructor(angle, img, scaleFactor, cx, cy, radius, testo) {
@@ -183,13 +376,13 @@ class Seed {
 
 function preload() {
   // Carica immagini sfondo e soffione
-  sfondo = loadImage("sfondo.png");
-  soffione = loadImage("soffione.png");
+  sfondo = loadImage("data/sfondo.png");
+  soffione = loadImage("data/soffione.png");
 
   // Carica immagini semi (soffione1.png, soffione2.png ...)
   let numSemi = testiSemi.length;
   for (let i = 1; i <= numSemi; i++) {
-    photos.push(loadImage(`soffione${i}.png`));
+    photos.push(loadImage(data/soffione${i}.png));
   }
 }
 
