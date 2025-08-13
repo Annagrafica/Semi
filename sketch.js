@@ -235,17 +235,19 @@ class Seed {
 }
 
 function preload() {
-  // Carica immagini sfondo e soffione
- photos.push(loadImage(`data/soffione${i}.png`));
-  soffione = loadImage(`data/soffione.png`);
+  // Facoltativo: sfondo (se non hai il file puoi commentare)
+  sfondo = loadImage('data/sfondo.png');
 
-  // Carica immagini semi (soffione1.png, soffione2.png ...)
-  let numSemi = testiSemi.length;
+  // Soffione centrale
+  soffione = loadImage('data/soffione.png');
+
+  // Semi: soffione1.png, soffione2.png, ...
+  const numSemi = testiSemi.length;
+  photos = [];
   for (let i = 1; i <= numSemi; i++) {
     photos.push(loadImage(`data/soffione${i}.png`));
   }
 }
-
 function setup() {
   createCanvas(windowWidth, windowHeight);
   imageMode(CENTER);
@@ -255,11 +257,16 @@ function setup() {
   // Ridimensiona immagini sfondo e soffione se necessario
   if (sfondo) sfondo.resize(width, height);
 
-  // Posiziona semi attorno al cerchio
-  const numSemi = testiSemi.length;
+   const numSemi = testiSemi.length;
   const circleCenterX = center.x;
   const circleCenterY = center.y - 65;
-  const circleRadius = soffione.width / 4 - 100;
+
+  let circleRadius;
+  if (soffione && soffione.width) {
+    circleRadius = soffione.width / 4 - 100;
+  } else {
+    circleRadius = min(width, height) * 0.15; // fallback sicuro
+  }
 
   const distanzaTraSemi = TWO_PI / numSemi;
 
@@ -443,7 +450,13 @@ function aggiornaVento() {
   vento.y = direzione.y * forzaSoffio * 0.5;
 }
 
-function mousePressed() {
+function mousePressed() { 
+  // Sblocca audio/microfono dopo gesto utente
+  if (getAudioContext().state !== 'running') {
+    userStartAudio();
+    getAudioContext().resume();
+  }
+
   if (showStartScreen) {
     showStartScreen = false;
     lastInteractionMillis = millis();
@@ -470,9 +483,15 @@ function mousePressed() {
     }
   }
 }
-
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
   center.set(width / 2, height / 2);
   if (sfondo) sfondo.resize(width, height);
+}
+function touchStarted() {
+  if (getAudioContext().state !== 'running') {
+    userStartAudio();
+    getAudioContext().resume();
+  }
+  return false;
 }
