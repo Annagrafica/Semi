@@ -540,23 +540,23 @@ function drawStartScreen() {
   let h = height;
   let w = width;
 
-  textSize(w * 0.03);
-  text("Per donare respiro alle vite passate", w / 2, h * 0.20);
+  textSize(w * 0.02);
+  text("Per donare respiro alle vite passate", w / 2, h * 0.10);
 
-  textSize(w * 0.085);
-  text("SOFFIA!", w / 2, h * 0.30);
+  textSize(w * 0.06);
+  text("SOFFIA!", w / 2, h * 0.20);
 
-  textSize(w * 0.03);
-  text("(Fai volare i semi)", w / 2, h * 0.40);
+  textSize(w * 0.02);
+  text("(Fai volare i semi)", w / 2, h * 0.30);
 
-  textSize(w * 0.03);
-  text("Per stringere la mano a chi abita nel ricordo e conoscerlo", w / 2, h * 0.60);
+  textSize(w * 0.02);
+  text("Per stringere la mano a chi abita nel ricordo e conoscerlo", w / 2, h * 0.50);
 
-  textSize(w * 0.085);
-  text("CLICCA", w / 2, h * 0.70);
+  textSize(w * 0.060);
+  text("CLICCA", w / 2, h * 0.60);
 
-  textSize(w * 0.03);
-  text("(Su un seme volante)", w / 2, h * 0.80);
+  textSize(w * 0.02);
+  text("(Su un seme volante)", w / 2, h * 0.70);
 }
 
 function drawClockArrows() {
@@ -596,6 +596,8 @@ function mousePressed() {
     showStartScreen = false;
     lastInteractionMillis = millis();
     return;
+     let fs = fullscreen();
+  fullscreen(!fs);
   }
 
   if (semeSelezionato !== null) {
