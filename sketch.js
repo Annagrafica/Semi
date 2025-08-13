@@ -396,20 +396,21 @@ function setup() {
   center = createVector(width / 2, height / 2);
   lastInteractionMillis = millis();
 
-  // Ridimensiona immagini sfondo e soffione se necessario
   if (sfondo) sfondo.resize(width, height);
 
-  // Posiziona semi attorno al cerchio
-  const numSemi = testiSemi.length;
-  const circleCenterX = center.x;
-  const circleCenterY = center.y - 65;
-  const circleRadius = soffione.width / 4 - 100;
+  // Parametri soffione centrati
+  const scaleFactor = 1.2;
+  const soffioneDisplayWidth = soffione.width * scaleFactor;
+  const circleRadius = (soffioneDisplayWidth / 2) * 0.7; // raggio intorno al soffione
 
+  const circleCenterX = center.x;
+  const circleCenterY = center.y + 30; // per allineare con immagine
+
+  const numSemi = testiSemi.length;
   const distanzaTraSemi = TWO_PI / numSemi;
 
   const scaleSet = [1.0, 1.4, 1.8];
   let scaleSequence = [];
-
   let lastIndex = -1;
   for (let i = 0; i < numSemi; i++) {
     let newIndex;
@@ -420,21 +421,17 @@ function setup() {
     lastIndex = newIndex;
   }
 
+  seeds = [];
   for (let i = 0; i < numSemi; i++) {
     let angle = i * distanzaTraSemi;
-    let scaleFactor = scaleSequence[i];
-    let seed = new Seed(angle, photos[i % photos.length], scaleFactor, circleCenterX, circleCenterY, circleRadius, testiSemi[i]);
+    let scaleFactorSeed = scaleSequence[i];
+    let seed = new Seed(angle, photos[i % photos.length], scaleFactorSeed, circleCenterX, circleCenterY, circleRadius, testiSemi[i]);
     seeds.push(seed);
   }
 
   // Audio setup
-  lastUpdateTime = millis();
-   mic = new p5.AudioIn();
-  mic.start(() => {
-    console.log('Microfono attivato');
-  }, (err) => {
-    console.error('Errore microfono:', err);
-  });
+  mic = new p5.AudioIn();
+  mic.start();
   fft = new p5.FFT(0.8, bands);
   fft.setInput(mic);
 }
