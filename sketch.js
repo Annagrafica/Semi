@@ -99,7 +99,7 @@ class Seed {
     this.circleRadius = radius;
     this.baseScaleFactor = scaleFactor;
     this.scaleAnimationPhase = random(TWO_PI);
-    this.scaleAnimationSpeed = random(0.1, 0.4);
+this.scaleAnimationSpeed = random(0.02, 0.06);
 
     this.rotation = angle + PI / 2;
     this.updatePosition();
@@ -184,7 +184,7 @@ this.noiseOffsetY += random(0.005, 0.02);
       }
     }
     this.scaleAnimationPhase += this.scaleAnimationSpeed;
-this.scaleFactor = this.baseScaleFactor * (1.0 + 0.15 * sin(this.scaleAnimationPhase));
+this.scaleFactor = this.baseScaleFactor * (1.0 + 0.05 * sin(this.scaleAnimationPhase));
   }
 
   lerpAngle(start, end, t) {
