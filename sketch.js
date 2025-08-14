@@ -184,7 +184,7 @@ this.noiseOffsetY += random(0.005, 0.02);
       }
     }
     this.scaleAnimationPhase += this.scaleAnimationSpeed;
-    this.scaleFactor = this.baseScaleFactor * (1.0 + 0.15 * sin(this.scaleAnimationPhase));
+this.scaleFactor = this.baseScaleFactor * (1.0 + 0.15 * sin(this.scaleAnimationPhase));
   }
 
   lerpAngle(start, end, t) {
