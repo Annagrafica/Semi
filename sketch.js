@@ -133,7 +133,7 @@ class Seed {
 
   update() {
     if (this.released && this.releaseProgress < 1.0) {
-      this.releaseProgress += 0.02;
+      this.releaseProgress += 0.01;
       let progressEased = this.easeOutQuad(this.releaseProgress);
 
       let targetX = this.x + cos(this.angle) * 5;
@@ -159,10 +159,10 @@ class Seed {
     }
 
     if (this.released) {
-      this.noiseOffsetX += random(0.01, 0.04);
-      this.noiseOffsetY += random(0.01, 0.04);
+this.noiseOffsetX += random(0.005, 0.02);
+this.noiseOffsetY += random(0.005, 0.02);
 
-      let maxSpeed = 4;
+      let maxSpeed = 2;
       let currentSpeed = sqrt(this.vx * this.vx + this.vy * this.vy);
       if (currentSpeed > maxSpeed) {
         this.vx = (this.vx / currentSpeed) * maxSpeed;
@@ -378,8 +378,8 @@ function draw() {
   }
 
   if (orologioAttivo) {
-    let velocitaRotazioneOra = TWO_PI / partiTotali / 60.0;
-    let velocitaRotazioneMinuti = velocitaRotazioneOra * 10;
+    let velocitaRotazioneOra = TWO_PI / partiTotali / 30.0;
+    let velocitaRotazioneMinuti = velocitaRotazioneOra * 5;
 
     lancettaOraAngle += velocitaRotazioneOra;
     lancettaMinutiAngle += velocitaRotazioneMinuti;
