@@ -162,7 +162,7 @@ class Seed {
 this.noiseOffsetX += random(0.005, 0.02);
 this.noiseOffsetY += random(0.005, 0.02);
 
-      let maxSpeed = 2;
+      let maxSpeed = 0.5;
       let currentSpeed = sqrt(this.vx * this.vx + this.vy * this.vy);
       if (currentSpeed > maxSpeed) {
         this.vx = (this.vx / currentSpeed) * maxSpeed;
